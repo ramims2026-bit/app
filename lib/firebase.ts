@@ -1,22 +1,15 @@
-import { initializeApp, getApps, getApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCJtctJALFhWbYXQSeGaT-0Ewr_aONZhaU",
-  authDomain: "rami-it.firebaseapp.com",
-  projectId: "rami-it",
-  storageBucket: "rami-it.firebasestorage.app",
-  messagingSenderId: "796181594095",
-  appId: "1:796181594095:web:46d5ed6bd44c677cc1401a",
-  measurementId: "G-DRH16ZP7S1"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: "rami-it", // הפרויקט שלך לפי ה-Auth Domain
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// ב-Cloudflare Pages/Edge, אנחנו מאתחלים רק אם אנחנו בסביבת לקוח או סביבה שתומכת ב-SDK
-const app = typeof window !== "undefined" || process.env.NODE_ENV === "development"
-  ? (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp())
-  : null;
-
-export const db = app ? getFirestore(app) : null;
-export const auth = app ? getAuth(app) : null;
-export { app };
+// מניעת אתחול כפול
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+export const db = getFirestore(app);
