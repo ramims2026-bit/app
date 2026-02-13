@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { Send, User, Bot, Loader2 } from "lucide-react";
-import { processBusinessRequest } from "../app/actions/gemini-brain"; // נתיב יחסי בטוח
+import { processBusinessRequest } from "@/app/actions/gemini-brain";
 
 export default function ChatInterface() {
   const [messages, setMessages] = useState([
