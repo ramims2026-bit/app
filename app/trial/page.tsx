@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
+import nextDynamic from "next/dynamic";
 import Navigation from "../components/Navigation";
 import { Zap } from "lucide-react";
 
-// הגדרות Route Segment - פשוטות ובטוחות ל-Next.js 14
+// הגדרות Route Segment - נשמרות בשם השמור "dynamic"
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-const TrialRegistrationForm = dynamic(
+const TrialRegistrationForm = nextDynamic(
   () => import("../components/TrialRegistrationForm"),
   {
     ssr: false,
@@ -20,7 +20,7 @@ const TrialRegistrationForm = dynamic(
   }
 );
 
-export default function HomePage() {
+export default function TrialPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -54,12 +54,12 @@ export default function HomePage() {
               <div>
                 <h4 className="font-bold text-xl text-white">חיבור לוואטסאפ</h4>
                 <p className="text-slate-400">
-                  בוט ה-AI ילמד את העסק שלך ויתחיל לענות ללקוחות.
+                  בוט ה‑AI ילמד את העסק שלך ויתחיל לענות ללקוחות.
                 </p>
               </div>
             </div>
 
-            {/* אפשר להוסיף כאן עוד יתרונות/כרטיסיות בהמשך */}
+            {/* אפשר להוסיף כאן פריטים נוספים */}
           </div>
         </div>
       </div>
