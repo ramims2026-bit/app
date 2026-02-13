@@ -2,16 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import nextDynamic from "next/dynamic";
-import Navigation from "../../components/Navigation";
+// עדכון נתיב הייבוא לשימוש ב-@
+import Navigation from "@/components/Navigation";
 import { Zap } from "lucide-react";
 
-// הגדרות Route Segment ל-Cloudflare
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-// טעינה דינמית ללא SSR - קריטי ב-Cloudflare למניעת קריסות בבנייה
+// עדכון נתיב הייבוא בתוך ה-Dynamic Import
 const TrialRegistrationForm = nextDynamic(
-  () => import("../../components/TrialRegistrationForm"),
+  () => import("@/components/TrialRegistrationForm"),
   { 
     ssr: false,
     loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
