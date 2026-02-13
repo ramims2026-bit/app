@@ -5,18 +5,14 @@ import nextDynamic from "next/dynamic";
 import Navigation from "../../components/Navigation";
 import { Zap } from "lucide-react";
 
-// הגדרות Route Segment - שמורויין בשם השמור "dynamic"
-export const runtime = "edge";
+// הגדרות ניתוב פשוטות - בלי Edge runtime ובלי אובייקטים
 export const dynamic = "force-dynamic";
-export const revalidate = 0;
 
 const TrialRegistrationForm = nextDynamic(
   () => import("../../components/TrialRegistrationForm"),
-  {
+  { 
     ssr: false,
-    loading: () => (
-      <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
-    ),
+    loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
   }
 );
 
@@ -41,25 +37,16 @@ export default function TrialPage() {
 
         <div className="w-full grid lg:grid-cols-2 gap-16 items-start">
           <TrialRegistrationForm />
-
+          
           <div className="space-y-8 text-right">
-            <h3 className="text-2xl font-bold italic border-r-4 border-green-500 pr-4">
-              מה תקבל?
-            </h3>
-
+            <h3 className="text-2xl font-bold italic border-r-4 border-green-500 pr-4">מה תקבל?</h3>
             <div className="flex items-start gap-4">
-              <div className="p-3 bg-white/5 rounded-2xl text-green-500">
-                <Zap />
-              </div>
+              <div className="p-3 bg-white/5 rounded-2xl text-green-500"><Zap /></div>
               <div>
                 <h4 className="font-bold text-xl text-white">חיבור לוואטסאפ</h4>
-                <p className="text-slate-400">
-                  בוט ה‑AI ילמד את העסק שלך ויתחיל לענות ללקוחות.
-                </p>
+                <p className="text-slate-400">בוט ה-AI ילמד את העסק שלך ויתחיל לענות ללקוחות.</p>
               </div>
             </div>
-
-            {/* אפשר להוסיף כאן יתרונות נוספים */}
           </div>
         </div>
       </div>
