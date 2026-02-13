@@ -4,13 +4,13 @@
   "private": true,
   "engines": {
     "node": "20.x"
-  },
-  "scripts": {
+"scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "pages:build": "npx @cloudflare/next-on-pages"
+    "pages:build": "npx @cloudflare/next-on-pages",
+    "deploy": "npm run build && npx @cloudflare/next-on-pages"
   },
   "dependencies": {
     "next": "14.2.23",
