@@ -2,22 +2,20 @@
 
 import React, { useEffect, useState } from "react";
 import nextDynamic from "next/dynamic";
-// עדכון נתיב הייבוא לשימוש ב-@
-import Navigation from "@/components/Navigation";
+// נתיב יחסי מדויק כדי לא להסתמך על הגדרות Alias בבילד
+import Navigation from "../../components/Navigation";
 import { Zap } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-// עדכון נתיב הייבוא בתוך ה-Dynamic Import
 const TrialRegistrationForm = nextDynamic(
-  () => import("@/components/TrialRegistrationForm"),
+  () => import("../../components/TrialRegistrationForm"),
   { 
     ssr: false,
     loading: () => <div className="h-96 w-full animate-pulse bg-white/5 rounded-3xl" />
   }
 );
-
 export default function TrialPage() {
   const [mounted, setMounted] = useState(false);
 
