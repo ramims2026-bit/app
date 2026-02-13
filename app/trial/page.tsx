@@ -1,12 +1,13 @@
 "use client";
-export const runtime = 'edge';
+
 import React, { useEffect, useState } from "react";
 import nextDynamic from "next/dynamic";
 import Navigation from "../../components/Navigation";
 import { Zap } from "lucide-react";
 
-// הגדרות ניתוב פשוטות - בלי Edge runtime ובלי אובייקטים
-export const dynamic = "force-dynamic";
+// הסרנו את export const runtime = 'edge';
+// הסרנו את export const revalidate = 0;
+// Next.js וקלאודפלייר ידעו לנהל את זה לבד כ-Dynamic Client Page
 
 const TrialRegistrationForm = nextDynamic(
   () => import("../../components/TrialRegistrationForm"),
