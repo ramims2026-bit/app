@@ -1,6 +1,3 @@
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -8,7 +5,11 @@ import nextDynamic from "next/dynamic";
 import Navigation from "../../components/Navigation";
 import { Zap } from "lucide-react";
 
-// טעינה דינמית ללא SSR - קריטי למניעת שגיאות ב-Build
+// הגדרות Route Segment - חובה להשאיר אותן פשוטות
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+// טעינה דינמית ללא SSR
 const TrialRegistrationForm = nextDynamic(
   () => import("../../components/TrialRegistrationForm"),
   { 
