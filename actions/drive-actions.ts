@@ -1,11 +1,10 @@
 "use server";
 
 import { google } from 'googleapis';
-import { Readable } from 'stream';
 
 const FOLDER_ID = '12Hnqog3tV83PGGXzQpg6xsnVEQu3RKOw';
 
-// הגדרת הזדהות (דורש קובץ Credentials מ-Google Cloud Console)
+// הזדהות מול Google Drive
 const auth = new google.auth.GoogleAuth({
   credentials: JSON.parse(process.env.GOOGLE_DRIVE_CREDENTIALS!),
   scopes: ['https://www.googleapis.com/auth/drive.file'],
@@ -18,24 +17,37 @@ export async function uploadProfileImage(formData: FormData) {
     const file = formData.get('file') as File;
     if (!file) throw new Error("No file uploaded");
 
-    const buffer = Buffer.from(await file.arrayBuffer());
-    const stream = new Readable();
-    stream.push(buffer);
-    stream.push(null);
+    // המרה ל-Uint8Array שמתאים לכל סביבת Runtime
+    const arrayBuffer = await file.arrayBuffer();
+    const uint8Array = new Uint8Array(arrayBuffer);
 
     const response = await drive.files.create({
       requestBody: {
-        name: `profile_${Date.now()}.jpg`,
+        name: `profile_${Date.now()}_${file.name}`,
         parents: [FOLDER_ID],
       },
       media: {
         mimeType: file.type,
-        body: stream,
+        body: ReadableStream.from([uint8Array]) as any, // שימוש ב-Web Stream
       },
-      fields: 'id, webViewLink',
+      fields: 'id, webViewLink, webContentLink',
     });
 
-    return { success: true, fileId: response.data.id, url: response.data.webViewLink };
+    // הפיכת הקובץ לנגיש לצפייה (Public Permission) - אופציונלי
+    await drive.permissions.create({
+      fileId: response.data.id!,
+      requestBody: {
+        role: 'reader',
+        type: 'anyone',
+      },
+    });
+
+    return { 
+      success: true, 
+      fileId: response.data.id, 
+      // webContentLink נותן קישור ישיר לתמונה
+      url: response.data.webContentLink || response.data.webViewLink 
+    };
   } catch (error) {
     console.error("Drive Upload Error:", error);
     return { success: false, error: "Failed to upload to Drive" };
