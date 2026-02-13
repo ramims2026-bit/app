@@ -16,6 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    // בתוך ה-export const metadata או בתוך ה-return של ה-RootLayout
+<link rel="stylesheet" href="/globals.css" />
     <html lang="he" dir="rtl">
       <body className={`${inter.className} antialiased bg-[#020617] text-white overflow-x-hidden`}>
         {children}
