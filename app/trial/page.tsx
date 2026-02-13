@@ -2,16 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import nextDynamic from "next/dynamic";
-import Navigation from "../components/Navigation";
+import Navigation from "../../components/Navigation";
 import { Zap } from "lucide-react";
 
-// הגדרות Route Segment - נשמרות בשם השמור "dynamic"
+// הגדרות Route Segment - שמורויין בשם השמור "dynamic"
 export const runtime = "edge";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 const TrialRegistrationForm = nextDynamic(
-  () => import("../components/TrialRegistrationForm"),
+  () => import("../../components/TrialRegistrationForm"),
   {
     ssr: false,
     loading: () => (
@@ -59,7 +59,7 @@ export default function TrialPage() {
               </div>
             </div>
 
-            {/* אפשר להוסיף כאן פריטים נוספים */}
+            {/* אפשר להוסיף כאן יתרונות נוספים */}
           </div>
         </div>
       </div>
