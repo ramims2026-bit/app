@@ -5,11 +5,12 @@ import nextDynamic from "next/dynamic";
 import Navigation from "../../components/Navigation";
 import { Zap } from "lucide-react";
 
-// הגדרות Route Segment - חובה להשאיר אותן פשוטות
+// הגדרות Route Segment - בצורה הכי פשוטה שיש
+// הערה: ב-Next.js 14, כשמשתמשים ב-"use client", עדיף שהגדרות אלו יהיו פשוטות ככל הניתן
+export const runtime = 'edge'; 
 export const dynamic = "force-dynamic";
-export const revalidate = 0;
+export const revalidate = 0; 
 
-// טעינה דינמית ללא SSR
 const TrialRegistrationForm = nextDynamic(
   () => import("../../components/TrialRegistrationForm"),
   { 
