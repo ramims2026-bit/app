@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // הגדרת ה-Runtime ל-Edge עבור Cloudflare
-  experimental: {
-    runtime: 'edge',
-  },
+  // הסרנו את ה-experimental.runtime
   typescript: {
     ignoreBuildErrors: true,
   },
