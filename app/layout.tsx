@@ -16,13 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="he" dir="rtl">
-      <head>
-        {/* הזרקה ידנית של ה-CSS לכל הדפים למקרה של בעיות ניתוב */}
-        <link rel="stylesheet" href="/_next/static/css/tailwind.css" />
-      </head>
-  <body className={`${inter.className} antialiased bg-[#020617] text-white min-h-screen`}>
-  {children}
-   </body>
+      <body className={`${inter.className} antialiased bg-[#020617] text-white min-h-screen overflow-x-hidden`}>
+        {children}
+      </body>
     </html>
   );
 }
