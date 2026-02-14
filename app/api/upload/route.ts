@@ -1,5 +1,4 @@
-// בדיקה זמנית ללוגים - תמחק אחרי שזה עובד
-console.log("=== Drive Auth Check ===");
+export const runtime = 'edge';console.log("=== Drive Auth Check ===");
 console.log("Credentials exists:", !!process.env.GOOGLE_DRIVE_CREDENTIALS);
 if (process.env.GOOGLE_DRIVE_CREDENTIALS) {
   try {
