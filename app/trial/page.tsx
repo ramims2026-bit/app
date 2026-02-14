@@ -1,99 +1,91 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Sun, Moon, Upload, CheckCircle2, Building2, Phone, Mail, User } from 'lucide-react';
+import { Sun, Moon, Upload, CheckCircle2, Building2, Phone, Mail, User, ShieldCheck, Zap } from 'lucide-react';
 
 export default function TrialPage() {
   const [isDark, setIsDark] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const toggleTheme = () => setIsDark(!isDark);
-
   return (
-    <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'bg-[#020617] text-white' : 'bg-slate-50 text-slate-900'}`} dir="rtl">
+    <div className={`min-h-screen transition-all duration-500 ${isDark ? 'bg-[#020617] text-white' : 'bg-slate-50 text-slate-900'}`} dir="rtl">
       
-      {/* Navigation */}
-      <nav className="p-6 flex justify-between items-center max-w-6xl mx-auto">
-        <div className="text-2xl font-black tracking-tighter italic">
-          Saban<span className="text-blue-500">OS</span>
+      {/* Header */}
+      <nav className="p-6 flex justify-between items-center max-w-6xl mx-auto border-b border-white/5">
+        <div className="text-3xl font-black tracking-tighter italic">
+          Saban<span className="text-blue-500 underline decoration-blue-500/30">OS</span>
         </div>
         <button 
-          onClick={toggleTheme}
-          className={`p-3 rounded-2xl transition-all shadow-lg ${isDark ? 'bg-white/5 hover:bg-white/10 text-yellow-400' : 'bg-black/5 hover:bg-black/10 text-blue-600'}`}
+          onClick={() => setIsDark(!isDark)}
+          className={`p-3 rounded-2xl transition-all shadow-xl ${isDark ? 'bg-white/5 hover:bg-white/10 text-yellow-400' : 'bg-white border border-slate-200 text-blue-600'}`}
         >
           {isDark ? <Sun size={20} /> : <Moon size={20} />}
         </button>
       </nav>
 
-      <main className="max-w-4xl mx-auto px-6 py-12">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-            הצטרפו למהפכת ה-<span className="text-blue-500">AI</span>
+      <main className="max-w-5xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        
+        {/* Left Side: Marketing Content */}
+        <div className="space-y-8 animate-in fade-in slide-in-from-right duration-700">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-bold">
+            <Zap size={14} /> המהפכה כבר כאן
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-tight">
+            הגיע הזמן לעבור ל-<span className="text-blue-500">AI</span> מלא.
           </h1>
-          <p className={`text-lg opacity-70 max-w-2xl mx-auto`}>
-            השאירו פרטים ותוך דקות נקים עבורכם עוזר אישי חכם המותאם בדיוק לצרכי העסק שלכם.
+          <p className="text-xl opacity-60 leading-relaxed max-w-lg">
+            SabanOS בונה עבורכם מערכת אינטליגנטית שמנהלת לקוחות, פניות והזמנות - הכל באוטומציה מלאה. השאירו פרטים והתחילו עכשיו.
           </p>
+          
+          <div className="space-y-4 pt-4">
+            <div className="flex items-center gap-3 font-medium">
+              <ShieldCheck className="text-green-500" /> אבטחת מידע בתקן בינלאומי
+            </div>
+            <div className="flex items-center gap-3 font-medium">
+              <CheckCircle2 className="text-green-500" /> 14 ימי ניסיון ללא התחייבות
+            </div>
+          </div>
         </div>
 
-        <div className={`rounded-[2.5rem] p-8 md:p-12 shadow-2xl border transition-all ${isDark ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200'}`}>
+        {/* Right Side: The Form */}
+        <div className={`rounded-[3rem] p-8 md:p-12 shadow-2xl border transition-all duration-300 ${isDark ? 'bg-white/[0.03] border-white/10' : 'bg-white border-slate-200'}`}>
           {isSuccess ? (
-            <div className="text-center py-12 animate-in fade-in zoom-in">
-              <CheckCircle2 size={80} className="mx-auto text-green-500 mb-6" />
-              <h2 className="text-3xl font-bold mb-4">נרשמת בהצלחה!</h2>
-              <p className="opacity-70">אנחנו כבר עובדים על סביבת העבודה החדשה שלך.</p>
+            <div className="text-center py-12 animate-in zoom-in duration-500">
+              <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle2 size={40} className="text-green-500" />
+              </div>
+              <h2 className="text-3xl font-bold mb-4">הבקשה התקבלה!</h2>
+              <p className="opacity-60 text-lg">אנחנו מכינים את הבוט הראשון שלכם. ניצור קשר תוך דקות.</p>
             </div>
           ) : (
-            <form className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* שם מלא */}
-                <div className="space-y-2">
-                  <label className="text-sm font-bold flex items-center gap-2">
-                    <User size={16} /> שם מלא
-                  </label>
-                  <input type="text" className={`w-full p-4 rounded-2xl border outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDark ? 'bg-black/20 border-white/10 text-white' : 'bg-slate-100 border-transparent text-black'}`} placeholder="ישראל ישראלי" />
+            <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); setIsSuccess(true); }}>
+              <div className="space-y-4">
+                <div className="relative group">
+                  <User className="absolute right-4 top-4 opacity-40 group-focus-within:text-blue-500 transition-colors" size={18} />
+                  <input required type="text" placeholder="שם מלא" className={`w-full pr-12 p-4 rounded-2xl border outline-none focus:ring-2 focus:ring-blue-500/50 transition-all ${isDark ? 'bg-black/40 border-white/10' : 'bg-slate-100 border-transparent'}`} />
                 </div>
 
-                {/* שם העסק */}
-                <div className="space-y-2">
-                  <label className="text-sm font-bold flex items-center gap-2">
-                    <Building2 size={16} /> שם העסק
-                  </label>
-                  <input type="text" className={`w-full p-4 rounded-2xl border outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDark ? 'bg-black/20 border-white/10 text-white' : 'bg-slate-100 border-transparent text-black'}`} placeholder="העסק שלי בע״מ" />
+                <div className="relative group">
+                  <Building2 className="absolute right-4 top-4 opacity-40 group-focus-within:text-blue-500 transition-colors" size={18} />
+                  <input required type="text" placeholder="שם העסק" className={`w-full pr-12 p-4 rounded-2xl border outline-none focus:ring-2 focus:ring-blue-500/50 transition-all ${isDark ? 'bg-black/40 border-white/10' : 'bg-slate-100 border-transparent'}`} />
                 </div>
 
-                {/* טלפון */}
-                <div className="space-y-2">
-                  <label className="text-sm font-bold flex items-center gap-2">
-                    <Phone size={16} /> טלפון נייד
-                  </label>
-                  <input type="tel" className={`w-full p-4 rounded-2xl border outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDark ? 'bg-black/20 border-white/10 text-white' : 'bg-slate-100 border-transparent text-black'}`} placeholder="050-0000000" />
-                </div>
-
-                {/* אימייל */}
-                <div className="space-y-2">
-                  <label className="text-sm font-bold flex items-center gap-2">
-                    <Mail size={16} /> דוא״ל עסקי
-                  </label>
-                  <input type="email" className={`w-full p-4 rounded-2xl border outline-none focus:ring-2 focus:ring-blue-500 transition-all ${isDark ? 'bg-black/20 border-white/10 text-white' : 'bg-slate-100 border-transparent text-black'}`} placeholder="office@business.com" />
+                <div className="relative group">
+                  <Phone className="absolute right-4 top-4 opacity-40 group-focus-within:text-blue-500 transition-colors" size={18} />
+                  <input required type="tel" placeholder="טלפון נייד" className={`w-full pr-12 p-4 rounded-2xl border outline-none focus:ring-2 focus:ring-blue-500/50 transition-all ${isDark ? 'bg-black/40 border-white/10' : 'bg-slate-100 border-transparent'}`} />
                 </div>
               </div>
 
-              {/* העלאת לוגו */}
-              <div className="space-y-4">
-                <label className="text-sm font-bold flex items-center gap-2">
-                  <Upload size={16} /> לוגו העסק
-                </label>
-                <div className={`border-2 border-dashed rounded-[2rem] p-10 text-center transition-all cursor-pointer hover:border-blue-500 group ${isDark ? 'border-white/10 bg-white/5' : 'border-slate-300 bg-slate-50'}`}>
-                  <Upload className="mx-auto mb-4 opacity-30 group-hover:scale-110 transition-transform" size={40} />
-                  <p className="text-sm opacity-50">גררו לכאן את הלוגו או לחצו לבחירה</p>
-                </div>
+              {/* Logo Upload Box */}
+              <div className={`border-2 border-dashed rounded-3xl p-8 text-center transition-all group hover:border-blue-500/50 ${isDark ? 'border-white/10 bg-white/5' : 'border-slate-300 bg-slate-50'}`}>
+                <Upload className="mx-auto mb-3 opacity-20 group-hover:scale-110 transition-transform" size={32} />
+                <p className="text-sm font-bold opacity-40">העלו לוגו לעסק (אופציונלי)</p>
               </div>
 
               <button 
-                type="button"
-                onClick={() => setIsSuccess(true)}
-                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl shadow-xl shadow-blue-500/20 transform transition hover:-translate-y-1 active:scale-95"
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-5 rounded-2xl shadow-2xl shadow-blue-600/30 transform transition hover:-translate-y-1 active:scale-95"
               >
                 התחלת תקופת ניסיון חינם
               </button>
@@ -102,8 +94,8 @@ export default function TrialPage() {
         </div>
       </main>
 
-      <footer className="py-10 text-center opacity-30 text-xs">
-        © 2026 SabanOS Intelligence Systems. All rights reserved.
+      <footer className="py-12 text-center opacity-20 text-sm tracking-widest">
+        SABANOS INTELLIGENCE • TAYIBE • 2026
       </footer>
     </div>
   );
