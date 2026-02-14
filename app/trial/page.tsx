@@ -1,52 +1,73 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { Sun, Moon, Upload, CheckCircle2, Building2, Phone, Mail, User } from 'lucide-react';
 
-export default function DiagnosticPage() {
-  const [tailwindLoaded, setTailwindLoaded] = useState(false);
-  const [cssPath, setCssPath] = useState("");
+export default function TrialPage() {
+  const [isDark, setIsDark] = useState(true);
 
-  useEffect(() => {
-    // בדיקה האם Tailwind עובד (בדיקת צבע מחושב)
-    const testElement = document.createElement('div');
-    testElement.className = 'bg-red-500';
-    document.body.appendChild(testElement);
-    const color = window.getComputedStyle(testElement).backgroundColor;
-    setTailwindLoaded(color === 'rgb(239, 68, 68)');
-    document.body.removeChild(testElement);
-
-    // בדיקה איזה קבצי CSS נטענו
-    const links = Array.from(document.getElementsByTagName('link'));
-    const cssFiles = links.map(l => l.href).join(', ');
-    setCssPath(cssFiles);
-  }, []);
+  // סגנונות Inline שיעבדו ב-100% גם בלי קבצי CSS חיצוניים
+  const theme = {
+    bg: isDark ? '#020617' : '#f8fafc',
+    card: isDark ? 'rgba(255, 255, 255, 0.05)' : '#ffffff',
+    text: isDark ? '#ffffff' : '#0f172a',
+    border: isDark ? 'rgba(255, 255, 255, 0.1)' : '#e2e8f0',
+    accent: '#3b82f6'
+  };
 
   return (
-    <div style={{ padding: '40px', fontFamily: 'sans-serif', direction: 'rtl', backgroundColor: '#1a1a1a', color: 'white', minHeight: '100vh' }}>
-      <h1 style={{ color: '#3b82f6' }}>🔍 מלשינון אבחון SabanOS</h1>
+    <div style={{ backgroundColor: theme.bg, color: theme.text, minHeight: '100vh', direction: 'rtl', transition: 'all 0.4s ease' }}>
       
-      <div style={{ marginTop: '20px', padding: '20px', border: '1px solid #444', borderRadius: '12px', backgroundColor: '#222' }}>
-        <h2>מצב Tailwind:</h2>
-        <p style={{ fontSize: '24px', fontWeight: 'bold', color: tailwindLoaded ? '#22c55e' : '#ef4444' }}>
-          {tailwindLoaded ? "✅ Tailwind פועל בהצלחה!" : "❌ Tailwind לא נטען בכלל!"}
-        </p>
-      </div>
+      {/* Header */}
+      <nav style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', maxWidth: '1000px', margin: '0 auto', alignItems: 'center' }}>
+        <div style={{ fontSize: '24px', fontWeight: '900', fontStyle: 'italic', letterSpacing: '-1px' }}>
+          Saban<span style={{ color: theme.accent }}>OS</span>
+        </div>
+        <button 
+          onClick={() => setIsDark(!isDark)}
+          style={{ background: theme.card, border: `1px solid ${theme.border}`, padding: '10px', borderRadius: '14px', cursor: 'pointer', color: isDark ? '#fbbf24' : '#2563eb' }}
+        >
+          {isDark ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
+      </nav>
 
-      <div style={{ marginTop: '20px', padding: '20px', border: '1px solid #444', borderRadius: '12px' }}>
-        <h2>נתיבי CSS שזוהו בדף:</h2>
-        <code style={{ wordBreak: 'break-all', color: '#fbbf24' }}>
-          {cssPath || "לא נמצאו קבצי CSS חיצוניים"}
-        </code>
-      </div>
+      <main style={{ maxWidth: '600px', margin: '0 auto', padding: '60px 20px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '50px' }}>
+          <h1 style={{ fontSize: '42px', fontWeight: '900', marginBottom: '16px' }}>הצטרפו ל-<span style={{ color: theme.accent }}>SabanOS</span></h1>
+          <p style={{ opacity: 0.6, fontSize: '18px' }}>מערכת הניהול החכמה של העסק שלך</p>
+        </div>
 
-      <div style={{ marginTop: '20px', color: '#aaa' }}>
-        <h3>צעדים לתיקון אם Tailwind אדום:</h3>
-        <ul style={{ lineHeight: '1.6' }}>
-          <li>וודא שב-Cloudflare ה-Build Output הוא <b>.vercel/output</b> (ולא static).</li>
-          <li>בדוק אם קיים קובץ <b>tailwind.config.ts</b> בשורש הפרויקט.</li>
-          <li>וודא שקובץ <b>app/globals.css</b> מכיל את שלוש שורות ה-@tailwind.</li>
-        </ul>
-      </div>
+        <div style={{ background: theme.card, border: `1px solid ${theme.border}`, borderRadius: '32px', padding: '40px', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)' }}>
+          <form style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label style={{ fontSize: '14px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <User size={16} /> שם מלא
+              </label>
+              <input style={{ padding: '16px', borderRadius: '16px', border: `1px solid ${theme.border}`, background: 'rgba(0,0,0,0.2)', color: 'inherit', outline: 'none' }} placeholder="ישראל ישראלי" />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label style={{ fontSize: '14px', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Building2 size={16} /> שם העסק
+              </label>
+              <input style={{ padding: '16px', borderRadius: '16px', border: `1px solid ${theme.border}`, background: 'rgba(0,0,0,0.2)', color: 'inherit', outline: 'none' }} placeholder="סבן חומרי בניין" />
+            </div>
+
+            <div style={{ border: `2px dashed ${theme.border}`, borderRadius: '20px', padding: '30px', textAlign: 'center', cursor: 'pointer' }}>
+              <Upload size={32} style={{ opacity: 0.3, marginBottom: '10px' }} />
+              <p style={{ fontSize: '14px', opacity: 0.5 }}>לחץ להעלאת לוגו</p>
+            </div>
+
+            <button 
+              type="button"
+              style={{ background: theme.accent, color: 'white', border: 'none', padding: '20px', borderRadius: '18px', fontSize: '18px', fontWeight: '900', cursor: 'pointer', marginTop: '10px' }}
+            >
+              התחלת ניסיון חינם
+            </button>
+          </form>
+        </div>
+      </main>
     </div>
   );
 }
