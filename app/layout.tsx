@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { Inter } from "next/font/google";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SabanOS | פתרונות AI לעסקים",
-  description: "העסק שלך עובד בשבילך - אוטומציה ובינה מלאכותית בוואטסאפ ובניהול העסק",
-  manifest: "/manifest.json",
+  title: "SabanOS | פלטפורמת AI לעסקים",
+  description: "ניהול חכם מבוסס בינה מלאכותית לעסקים קטנים ובינוניים",
 };
 
 export default function RootLayout({
@@ -16,9 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // בתוך ה-export const metadata או בתוך ה-return של ה-RootLayout
-<link rel="stylesheet" href="/globals.css" />
     <html lang="he" dir="rtl">
+      <head>
+        {/* קישור קריטי לעיצוב בכל הנתיבים באתר */}
+        <link rel="stylesheet" href="/globals.css" />
+      </head>
       <body className={`${inter.className} antialiased bg-[#020617] text-white overflow-x-hidden`}>
         {children}
       </body>
