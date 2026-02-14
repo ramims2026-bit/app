@@ -16,11 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="he" dir="rtl">
-      <head>
-        {/* קישור קריטי לעיצוב בכל הנתיבים באתר */}
-        <link rel="stylesheet" href="/globals.css" />
-      </head>
-      <body className={`${inter.className} antialiased bg-[#020617] text-white overflow-x-hidden`}>
+      <body className={`${inter.className} antialiased bg-[#020617] text-white min-h-screen overflow-x-hidden`}>
         {children}
       </body>
     </html>
